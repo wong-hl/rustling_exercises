@@ -16,14 +16,30 @@
 // There are at least two ways to implement this that are both correct-- but
 // one is a lot shorter! Execute `rustlings hint errors2` for hints to both ways.
 
-// I AM NOT DONE
-
 use std::num::ParseIntError;
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
-    let qty = item_quantity.parse::<i32>();
+    //let qty = item_quantity.parse::<i32>();
+
+    // Mthd 1 - Verbose method
+    // Uses Match, returns earlier if parsing is incorrect
+    //let qty = item_quantity.parse::<i32>();
+    //let qty = match qty {
+    //    Ok(val) => val,
+    //    Err(e) => return Err(e),
+    //};
+
+    // Mthd 2 - Concise method
+    // Uses the ? operator
+    // ? works in almost the same way as match
+    // If Ok, Ok will get returned from the expression
+    // If Err, Err will be returned from the whole function as if we had used
+    // the return keyword so the error value gets propagated to the calling
+    // code (verbatim from rust-lang book 9.2)
+    // ? uses the from trait to return the error type specified
+    let qty = item_quantity.parse::<i32>()?;
 
     Ok(qty * cost_per_item + processing_fee)
 }

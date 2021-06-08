@@ -4,14 +4,22 @@
 // Why not? What should we do to fix it?
 // Execute `rustlings hint errors3` for hints!
 
-// I AM NOT DONE
-
+use std::error::Error;
 use std::num::ParseIntError;
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let mut tokens = 100;
     let pretend_user_input = "8";
 
+    // It's not working as ? returns the Err() to the function BUT main
+    // is a special type of function
+    //
+    // Solution given at the end of 9.2 is to change the return type
+    // to be Result<T, E>
+    //
+    // Two changes to be made:
+    // 1. At the function declaration to include Result<(), Box<dyn Error>>
+    // 2. At end to return Ok(())
     let cost = total_cost(pretend_user_input)?;
 
     if cost > tokens {
@@ -20,6 +28,8 @@ fn main() {
         tokens -= cost;
         println!("You now have {} tokens.", tokens);
     }
+
+    Ok(())
 }
 
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {

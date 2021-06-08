@@ -5,6 +5,8 @@
 // Edit the `read_and_validate` function ONLY. Don't create any Errors
 // that do not already exist.
 //
+// HL: YES, BOSS!!
+//
 // So many things could go wrong!
 //
 // - Reading from stdin could produce an io::Error
@@ -15,21 +17,36 @@
 // type goes where the question marks are, and how do we return
 // that type from the body of read_and_validate?
 //
+// HL:  I mean I could just lump all of them into a single error type using ?
+//      as mentioned in the book but is that the solution they want?
+// HL (from the future): Nope, that's not what they want, it will cause the
+//                       test to fail. Just changed it to what ever was dictated
+//                       in the test for test_with_str
+//
 // Execute `rustlings hint errorsn` for hints :)
-
-// I AM NOT DONE
 
 use std::error;
 use std::fmt;
 use std::io;
 
 // PositiveNonzeroInteger is a struct defined below the tests.
-fn read_and_validate(b: &mut dyn io::BufRead) -> Result<PositiveNonzeroInteger, ???> {
+fn read_and_validate(
+    b: &mut dyn io::BufRead,
+) -> Result<PositiveNonzeroInteger, Box<dyn error::Error>> {
+    // I've just copied the error type from the test_with_string test
+    // I have no f*ing clue what Box<dyn error::Error>> is other than having
+    // seen it at the end of 9.2 for the main example
+
     let mut line = String::new();
-    b.read_line(&mut line);
-    let num: i64 = line.trim().parse();
-    let answer = PositiveNonzeroInteger::new(num);
-    answer
+    // Next 3 lines has possibility of failure => add ?
+    b.read_line(&mut line)?;
+    let num: i64 = line.trim().parse()?;
+    let answer = PositiveNonzeroInteger::new(num)?;
+    // N.B. ? returns unwrapped result if Ok
+
+    // Returning a Result enum => need to have the answer (an int?)
+    // to be inside an Ok
+    Ok(answer)
 }
 
 //

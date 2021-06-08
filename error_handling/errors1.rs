@@ -6,14 +6,18 @@
 // this function to have.
 // Execute `rustlings hint errors1` for hints!
 
-// I AM NOT DONE
-
-pub fn generate_nametag_text(name: String) -> Option<String> {
+pub fn generate_nametag_text(name: String) -> Result<String, String> {
+    // I was on the right path!
+    // Just needed to add format! to the error message to make it a Sting
+    //
+    // To handle errors - use Result instead of Option as had been given
+    // The tests require that the result types for both to be Strings
     if name.len() > 0 {
-        Some(format!("Hi! My name is {}", name))
+        Ok(format!("Hi! My name is {}", name))
     } else {
         // Empty names aren't allowed.
-        None
+        //Err(Error)
+        Err(format!("`name` was empty; it must be nonempty."))
     }
 }
 
@@ -28,7 +32,7 @@ mod tests {
     fn generates_nametag_text_for_a_nonempty_name() {
         assert_eq!(
             generate_nametag_text("Beyoncé".into()),
-            Some("Hi! My name is Beyoncé".into())
+            Ok("Hi! My name is Beyoncé".into())
         );
     }
 
