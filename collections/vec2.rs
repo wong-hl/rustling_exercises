@@ -7,12 +7,16 @@
 // Execute the command `rustlings hint vec2` if you need
 // hints.
 
-// I AM NOT DONE
-
 fn vec_loop(mut v: Vec<i32>) -> Vec<i32> {
     for i in v.iter_mut() {
-        // TODO: Fill this up so that each element in the Vec `v` is
-        // multiplied by 2.
+        // This exact method is found in sec. 8.1 of rust lang book
+        // N.B.: the * => dereferencing
+        // Why dereference?
+        // i is a mutable reference thus must first dereference
+        // At the end of loop, mutable reference goes out of scope
+        // Therefore, all changes are safe and allowed by borrowing rules
+        // From: 8.3 on Hashmaps (paragraph after listing 8-26)
+        *i *= 2;
     }
 
     // At this point, `v` should be equal to [4, 8, 12, 16, 20].
