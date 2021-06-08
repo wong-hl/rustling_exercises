@@ -1,4 +1,6 @@
-This readme is the default from rustlings NOT my own work 
+This readme is the default from rustlings is NOT my own work 
+
+Note that, all readme's in this repo are from rustlings and are therefore, not my work.
 
 # Exercise to Book Chapter mapping
 
