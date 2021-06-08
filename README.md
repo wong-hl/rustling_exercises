@@ -1,3 +1,5 @@
+This readme is the default from rustlings NOT my own work 
+
 # Exercise to Book Chapter mapping
 
 | Exercise               | Book Chapter |
