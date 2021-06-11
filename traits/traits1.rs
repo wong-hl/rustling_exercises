@@ -8,14 +8,25 @@
 // which appends "Bar" to any object
 // implementing this trait.
 
-// I AM NOT DONE
-
 trait AppendBar {
     fn append_bar(self) -> Self;
 }
 
 impl AppendBar for String {
-    //Add your code here
+    // Function for the method of the trait needs to be the same
+    // as the above declaration in trait AppendBar
+    //
+    // self needs to be mutable to add a string literal
+    fn append_bar(mut self) -> Self {
+        // push_str is the function in Stuct String that allows
+        // for the addition of a string literal
+        self.push_str("Bar");
+        // Need to return self
+        // Firstly, as that's in the definition
+        // Secondly, to prevent the String from falling out of scope
+        // as ownership of it has been taken (I think)
+        self
+    }
 }
 
 fn main() {
