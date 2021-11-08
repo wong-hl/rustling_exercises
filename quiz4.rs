@@ -5,7 +5,15 @@
 
 // Write a macro that passes the quiz! No hints this time, you can do it!
 
-// I AM NOT DONE
+// Resolved by nesting with another level of brackets????
+
+macro_rules! my_macro {
+    ($val: expr) => {{
+        let mut out_str = String::from("Hello ");
+        out_str.push_str($val);
+        out_str
+    }};
+}
 
 #[cfg(test)]
 mod tests {
