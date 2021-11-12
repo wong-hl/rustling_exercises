@@ -3,6 +3,7 @@
 // on strings to generate an object of the implementor type.
 // You can read more about it at https://doc.rust-lang.org/std/str/trait.FromStr.html
 use std::error;
+use std::fmt::Error;
 use std::str::FromStr;
 
 #[derive(Debug)]
@@ -11,7 +12,6 @@ struct Person {
     age: usize,
 }
 
-// I AM NOT DONE
 
 // Steps:
 // 1. If the length of the provided string is 0, an error should be returned
@@ -26,6 +26,26 @@ struct Person {
 impl FromStr for Person {
     type Err = Box<dyn error::Error>;
     fn from_str(s: &str) -> Result<Person, Self::Err> {
+        if s.len() == 0 || !s.contains(",") {
+            return Err(Box::new(Error));
+        };
+
+        let fields: Vec<&str> = s.split(",").collect();
+
+        if fields.len() != 2 {
+            return Err(Box::new(Error));
+        };
+
+        let name: String = String::from(fields[0]);
+
+        if name.len() == 0 {
+            return Err(Box::new(Error));
+        };
+
+        match fields[1].parse::<usize>() {
+            Err(_) => return Err(Box::new(Error)),
+            Ok(age) => return Ok(Person { name, age }),
+        }
     }
 }
 
